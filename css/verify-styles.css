@@ -1,0 +1,540 @@
+/* verify-styles.css - Estilos para la página de verificación de correo */
+
+:root {
+    --primary: #667eea;
+    --primary-dark: #5a67d8;
+    --primary-light: #7f9cf5;
+    --secondary: #764ba2;
+    --success: #48bb78;
+    --success-light: #9ae6b4;
+    --danger: #f56565;
+    --danger-light: #fed7d7;
+    --warning: #ed8936;
+    --dark: #1a1a2e;
+    --gray: #718096;
+    --gray-light: #e2e8f0;
+    --white: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #2d3748;
+    line-height: 1.5;
+}
+
+/* Contenedor principal */
+.verify-wrapper {
+    max-width: 550px;
+    margin: 0 auto;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.verify-container {
+    background: var(--white);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+}
+
+/* Botón volver */
+.back-link {
+    position: absolute;
+    top: 24px;
+    left: 28px;
+    color: var(--black);
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.back-link:hover {
+    color: var(--primary);
+    transform: translateX(-3px);
+}
+
+/* Header */
+.verify-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px 32px 48px 32px;
+    text-align: center;
+    color: white;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.logo i {
+    font-size: 32px;
+}
+
+/* Indicador de pasos */
+.step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+    gap: 8px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-number {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.step.completed .step-number {
+    background: var(--success);
+    color: white;
+}
+
+.step.active .step-number {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+.step-label {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.step.active .step-label {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.step-line {
+    width: 50px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 4px;
+}
+
+.verify-header h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.verify-header p {
+    font-size: 15px;
+    opacity: 0.95;
+    margin-bottom: 12px;
+}
+
+.email-display {
+    background: rgba(255, 255, 255, 0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* Contenido principal */
+.verify-content {
+    padding: 40px 32px;
+}
+
+/* Mensajes */
+.info-message {
+    background: #ebf8ff;
+    border-left: 4px solid var(--primary);
+    padding: 14px 18px;
+    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.info-message i {
+    color: var(--primary);
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+.error-message {
+    background: var(--danger-light);
+    border-left: 4px solid var(--danger);
+    padding: 14px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #c53030;
+}
+
+.success-message {
+    background: #c6f6d5;
+    border-left: 4px solid var(--success);
+    padding: 14px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #22543d;
+}
+
+/* Formulario */
+.verification-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-group label i {
+    color: var(--primary);
+}
+
+.code-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.code-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 32px;
+    text-align: center;
+    letter-spacing: 8px;
+    border: 2px solid var(--gray-light);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    background: var(--white);
+}
+
+.code-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.code-input.complete {
+    border-color: var(--success);
+    background: #f0fff4;
+}
+
+.paste-btn {
+    position: absolute;
+    right: 12px;
+    background: var(--gray-light);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--gray);
+}
+
+.paste-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.input-hint {
+    font-size: 12px;
+    color: var(--gray);
+}
+
+/* Temporizador */
+.timer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--gray-light);
+    border-radius: 12px;
+}
+
+.timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.timer i {
+    color: var(--primary);
+}
+
+.timer.expired {
+    color: var(--danger);
+}
+
+.resend-btn {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.resend-btn:hover:not(:disabled) {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.resend-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Botón verificar */
+.verify-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.verify-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Texto de ayuda */
+.help-text {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--gray-light);
+}
+
+.help-text p {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--dark);
+}
+
+.help-text ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.help-text li {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 6px;
+    position: relative;
+}
+
+.help-text li::before {
+    content: "•";
+    color: var(--primary);
+    position: absolute;
+    left: -14px;
+}
+
+/* Caja de éxito */
+.success-box {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.success-icon {
+    font-size: 80px;
+    color: var(--success);
+    margin-bottom: 20px;
+    animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.success-box h3 {
+    font-size: 24px;
+    color: var(--dark);
+    margin-bottom: 12px;
+}
+
+.success-box p {
+    color: var(--gray);
+    margin-bottom: 24px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--gray-light);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto 0;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Footer */
+.verify-footer {
+    background: #f7fafc;
+    padding: 20px 32px;
+    text-align: center;
+    border-top: 1px solid var(--gray-light);
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.footer-links {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    body {
+        padding: 20px 15px;
+    }
+
+    .verify-header {
+        padding: 32px 24px 40px 24px;
+    }
+
+    .verify-header h1 {
+        font-size: 24px;
+    }
+
+    .verify-content {
+        padding: 32px 24px;
+    }
+
+    .step-line {
+        width: 30px;
+    }
+
+    .code-input {
+        font-size: 24px;
+        letter-spacing: 4px;
+        padding: 14px 16px;
+    }
+
+    .back-link {
+        top: 18px;
+        left: 20px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .step-label {
+        display: none;
+    }
+    
+    .step-line {
+        width: 20px;
+    }
+}

@@ -1,6 +1,11 @@
 <?php
 
 include('conexion.php');
+session_start([
+                'cookie_httponly' => true,
+                'cookie_secure'   => isset($_SERVER['HTTPS']),
+                'cookie_samesite' => 'Strict'
+            ]);
 ?>
 
 <!DOCTYPE html>
@@ -129,45 +134,61 @@ include('conexion.php');
  -->
 <?php
     if(isset($_POST['enviar'])){
-        $contraseña=null;
-        $nombre_comp=$_POST['name'];
-        $correo=$_POST['mail'];
-        $telefono=$_POST['number'];
-        $telefono=(string)$telefono;
-        $contraseña=$_POST['pass'];
-        
-        if(!(empty($nombre_comp) && empty($correo) && empty($contraseña) && empty($telefono))){
-            if(mb_strlen($contraseña)>=8 && mb_strlen($contraseña)<=18){
-                
-                    if(validacion_pass($contraseña)){
-                        encriptarPassword($contraseña);
-                        if(ejecutarSQL('INSERT INTO alumno (nombre, correo, tel, contraseña) VALUES ("'.$nombre_comp.'","'.$correo.'","'.$telefono.'","'.$contraseña.'")')){
-                            echo '<script>
-                                    alert("usuario creado con exito");
-                                </script>';
-                        }else{
-                            echo '<script>
-                                    alert("error al crear usuario");
-                                </script>';                       
-                        }
-                    }else{
-                        echo'<script>
-                                alert("la contraseña debe contener caracteres especiales, numeros, mayusculas y minusculas");
-                            </script>';
-                    }
-               
-            }else{
-                echo'<script>
-                        alert("la contraseña debe ser mayor a 8 caracteres");
-                    </script>';
-            }
-        }else{
-            echo'<script>
-                    alert("rellena todos los campos");
-                </script>';
+
+        $nombre_comp = $_POST['name'] ?? '';
+        $correo      = $_POST['mail'] ?? '';
+        $telefono    = $_POST['number'] ?? '';
+        $contraseña  = $_POST['pass'] ?? '';
+
+        // Validar campos vacíos
+        if(empty($nombre_comp) || empty($correo) || empty($telefono) || empty($contraseña)){
+            echo '<script>alert("Rellena todos los campos");</script>';
+            exit;
         }
+
+        // Validar email
+        if(!filter_var($correo, FILTER_VALIDATE_EMAIL)){
+            echo '<script>alert("Correo inválido");</script>';
+            exit;
+        }
+
+        // Validar contraseña
+        if(strlen($contraseña) < 8 || strlen($contraseña) > 18){
+            echo '<script>alert("La contraseña debe tener entre 8 y 18 caracteres");</script>';
+            exit;
+        }
+
+        if(!validacion_pass($contraseña)){
+            echo '<script>alert("Debe tener mayúsculas, minúsculas, números y caracteres especiales");</script>';
+            exit;
+        }
+
+        // 🔐 Encriptar contraseña
+        $passwordHash = encriptarPassword($contraseña);
+
+        // 📧 Enviar código
+        $respuesta = enviarCodigoVerificacion($correo);
+
+        if($respuesta !== true){
+            echo "<script>alert('$respuesta');</script>";
+            exit;
+        }
+
+        // 💾 Guardar datos en sesión (NO en BD aún)
+        session_start();
+        $_SESSION['registro_temp'] = [
+            'nombre' => $nombre_comp,
+            'correo' => $correo,
+            'telefono' => $telefono,
+            'password' => $passwordHash
+        ];
+
+        echo '<script>
+            alert("Código enviado a tu correo");
+            window.location.href = "verificar.php";
+        </script>';
     }
-?>
+    ?>
 <!-- <script>
     alert("");
 </script> -->

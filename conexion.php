@@ -1,11 +1,20 @@
 <?php
+
+//DEPENDENCIAS
     define("SERVIDOR","localhost");
     define("USUARIO","root");
     define("PASS","");
     define("BASE_DATOS","ayowi");
     define("KEY","T09_$3crE7");
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
+    require 'vendor/autoload.php';
+//FIN DE DEPENDECIAS
+
+
+    //SIEMPRE ANTES DE USAR ESTA FUNCION INICIAR SESSION ARRIBA DE TODO
     function generarCodigo($longitud = 6) {
         return str_pad(random_int(0, pow(10, $longitud) - 1), $longitud, '0', STR_PAD_LEFT);
     }
@@ -17,11 +26,7 @@
                 return "Correo inválido";
             }
 
-            session_start([
-                'cookie_httponly' => true,
-                'cookie_secure'   => isset($_SERVER['HTTPS']),
-                'cookie_samesite' => 'Strict'
-            ]);
+            
 
             $codigo = generarCodigo();
 
