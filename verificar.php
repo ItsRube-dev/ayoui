@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("refresh:3; url=registro-completo.php");
     } else {
         // Código incorrecto
-        $error_message = "Código de verificación incorrecto. Por favor, inténtalo de nuevo.";
+        $error_message = "Codigo de verificacion incorrecto. Por favor, intentalo de nuevo.";
     }
 }
 

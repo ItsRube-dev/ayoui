@@ -45,13 +45,13 @@
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
-                $mail->setFrom('AyouiCorp@gmail.com', 'Verificación');
+                $mail->setFrom('AyouiCorp@gmail.com', 'Verificacion');
                 $mail->addAddress($emailDestino);
 
                 $mail->isHTML(true);
-                $mail->Subject = 'Código de verificación';
-                $mail->Body    = "<h3>Tu código es: <b>$codigo</b></h3>";
-                $mail->AltBody = "Tu código es: $codigo";
+                $mail->Subject = 'Codigo de verificacion';
+                $mail->Body    = "<h3>Tu codigo es: <b>$codigo</b></h3>";
+                $mail->AltBody = "Tu codigo es: $codigo";
 
                 $mail->send();
 
@@ -67,18 +67,18 @@
             session_start();
 
             if (!isset($_SESSION['codigo_verificacion'], $_SESSION['email_verificacion'], $_SESSION['codigo_expira'])) {
-                return "No hay código generado";
+                return "No hay codigo generado";
             }
 
             if (time() > $_SESSION['codigo_expira']) {
-                return "El código expiró";
+                return "El codigo expiró";
             }
 
             if ($codigoIngresado == $_SESSION['codigo_verificacion'] && $email == $_SESSION['email_verificacion']) {
                 return true;
             }
 
-            return "Código incorrecto";
+            return "Codigo incorrecto";
         }
 
         function validacion_pass($contra = null) {
